@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>HAIR COLOR MATRIX · 2026 潮流髮色智慧診斷與開放式色庫</title>
+  <!-- Tailwind CSS Engine (雙引擎相容：支援 Antigravity 內嵌與 GitHub Pages 公開環境) -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script>
+    if (!window.tailwind) {
+      const fallbackScript = document.createElement('script');
+      fallbackScript.src = 'https://cdn.tailwindcss.com';
+      document.head.appendChild(fallbackScript);
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+    }
+    .custom-shadow {
+      box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.08);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+
+  <!-- TOP APP BAR / NAVIGATION -->
+  <header class="glass-nav border-b border-slate-200/80 sticky top-0 z-50 transition-all">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchMainTab('quiz')">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-500 via-purple-600 to-indigo-600 flex items-center justify-center text-white font-black text-lg shadow-md shadow-purple-500/20">
+          ✦
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-base font-black tracking-tight text-slate-900 leading-none">HAIR MATRIX</h1>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-purple-100 text-purple-700 font-mono">WEB</span>
+          </div>
+          <p class="text-[11px] text-slate-700 font-medium mt-0.5">專業髮色智慧診斷系統 · 開放式色庫</p>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold">
+        <button id="nav-btn-quiz" onclick="switchMainTab('quiz')" class="px-3.5 py-1.5 rounded-lg bg-white text-purple-700 shadow-sm transition-all flex items-center gap-1.5">
+          <span>✨</span>
+          <span>命定診斷</span>
+        </button>
+        <button id="nav-btn-gallery" onclick="switchMainTab('gallery')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 transition-all flex items-center gap-1.5">
+          <span>🎨</span>
+          <span>開放色庫</span>
+        </button>
+      </div>
+
+      <!-- Quick Action: QR / Share -->
+      <div class="hidden sm:flex items-center gap-2">
+        <button onclick="openShareModal()" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+          分享網頁
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN TAB 1: 智慧髮色診斷系統 (QUIZ) ==================== -->
+  <main id="tab-quiz" class="max-w-3xl mx-auto px-4 py-6 w-full flex-1">
+    
+    <!-- Progress Indicator -->
+    <div id="progress-container" class="mb-6">
+      <div class="flex items-center justify-between text-xs font-bold text-slate-500 mb-2">
+        <span id="step-label">步驟 1 / 4：個人色彩與膚色診斷</span>
+        <span id="progress-percent" class="font-mono text-purple-600">25%</span>
+      </div>
+      <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-purple-500 to-rose-500 h-full rounded-full transition-all duration-300 w-1/4"></div>
+      </div>
+    </div>
+
+    <!-- Questionnaire Container -->
+    <div id="quiz-card" class="glass-card rounded-2xl p-5 sm:p-8 custom-shadow border transition-all duration-300">
+      
+      <!-- STEP 1: 個人色彩與膚色 -->
+      <section id="step-1" class="step-pane space-y-6">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold mb-2">
+            STEP 01
+          </span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900">膚色與個人色彩特徵</h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">髮色是臉龐的底色框，準確找出肌膚冷暖調是「顯白不暗沉」的關鍵核心。</p>
+        </div>
+
+        <!-- Question 1.1: 血管顏色與飾品反應 -->
+        <div class="space-y-3">
+          <label class="block text-sm font-bold text-slate-800">
+            Q1. 自然光下手腕血管顏色，以及戴金飾/銀飾的襯膚感？
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button type="button" onclick="selectOption('tone', 'warm', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left transition flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">暖色調 Warm</span>
+                <p class="font-semibold text-slate-950 mt-2 text-sm">血管偏綠 / 金飾比銀飾更顯氣色</p>
+              </div>
+              <p class="text-xs text-slate-700 mt-2">曬後容易變黑，少發紅泛腫，膚色帶有溫暖象牙感。</p>
+            </button>
+            <button type="button" onclick="selectOption('tone', 'cool', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left transition flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200/60">冷色調 Cool</span>
+                <p class="font-semibold text-slate-950 mt-2 text-sm">血管偏藍紫 / 銀飾顯白透亮</p>
+              </div>
+              <p class="text-xs text-slate-700 mt-2">曬後容易發紅灼熱，微血管較明顯，肌膚帶透粉或白皙感。</p>
+            </button>
+            <button type="button" onclick="selectOption('tone', 'olive', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left transition flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">橄欖皮 Olive</span>
+                <p class="font-semibold text-slate-950 mt-2 text-sm">血管藍綠兼具 / 帶青冷調微黃</p>
+              </div>
+              <p class="text-xs text-slate-700 mt-2">穿橘黃色顯暗沉無神，需要冷調去黃灰階色（抹茶、冷茶）修飾。</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 1.2: 膚色明度 -->
+        <div class="space-y-3 pt-2">
+          <label class="block text-sm font-bold text-slate-800">
+            Q2. 你的肌膚明度大致落在？
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button type="button" onclick="selectOption('skin_lightness', 'fair', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">極淺白皙 (Fair)</span>
+              <span class="text-xs text-slate-700">平時粉底選最白色號，色彩駕馭度廣</span>
+            </button>
+            <button type="button" onclick="selectOption('skin_lightness', 'natural', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">自然微黃 (Medium)</span>
+              <span class="text-xs text-slate-700">亞洲大眾自然膚色，關鍵在去黃去暗沉</span>
+            </button>
+            <button type="button" onclick="selectOption('skin_lightness', 'tan', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">健康小麥色 (Tan/Deep)</span>
+              <span class="text-xs text-slate-700">陽光感、深暖調，適合濃郁金屬或焦糖深醇調</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4">
+          <button type="button" onclick="nextStep(2)" class="w-full sm:w-auto px-7 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-purple-600 transition shadow-sm flex items-center justify-center gap-1.5">
+            下一步：髮質與歷史紀錄 ➔
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 2: 髮況與染髮歷史 -->
+      <section id="step-2" class="step-pane hidden space-y-6">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold mb-2">
+            STEP 02
+          </span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900">髮況可行性與歷史檢驗</h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">設計師專業把關髮質極限，避免卡色或漂後斷裂的災難。</p>
+        </div>
+
+        <!-- Question 2.1: 漂髮接受度 -->
+        <div class="space-y-3">
+          <label class="block text-sm font-bold text-slate-800">
+            Q3. 你目前對於「漂髮（Bleach）」的接受程度？
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button type="button" onclick="selectOption('bleach_accept', 'no', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-rose-500 hover:bg-rose-50/50 text-left transition flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">完全不想漂髮</span>
+                <p class="font-semibold text-slate-950 mt-2 text-sm">堅持免漂 (Level ≤ 8)</p>
+              </div>
+              <p class="text-xs text-slate-700 mt-2">偏好原生質感的深茶棕、冷翠黑茶、楓葉紅棕等質感色。</p>
+            </button>
+            <button type="button" onclick="selectOption('bleach_accept', 'partial', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-rose-500 hover:bg-rose-50/50 text-left transition flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200/60">可接受局部微漂 ★推薦</span>
+                <p class="font-semibold text-slate-950 mt-2 text-sm">耳圈染 / 光線線條 / 裙襬染</p>
+              </div>
+              <p class="text-xs text-slate-700 mt-2">既能擁有流行特殊色，又保留大面積健康髮質，傷害最低。</p>
+            </button>
+            <button type="button" onclick="selectOption('bleach_accept', 'full', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-rose-500 hover:bg-rose-50/50 text-left transition flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200/60">全頭漂退無所畏懼</span>
+                <p class="font-semibold text-slate-950 mt-2 text-sm">追求極致混血白金色系</p>
+              </div>
+              <p class="text-xs text-slate-700 mt-2">願意承擔漂退與定期護理，想要奶茶金、極光灰藍等通透色。</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 2.2: 歷史地雷檢查 -->
+        <div class="space-y-3 pt-2">
+          <label class="block text-sm font-bold text-slate-800">
+            Q4. 過去 1-2 年內是否有以下情況？（防卡色判斷）
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button type="button" onclick="selectOption('history_risk', 'clean', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-rose-500 hover:bg-rose-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">乾淨無卡色史</span>
+              <span class="text-xs text-slate-700">只在沙龍做正常染燙，或近半年皆原生黑髮</span>
+            </button>
+            <button type="button" onclick="selectOption('history_risk', 'boxed_or_black', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-rose-500 hover:bg-rose-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">曾自行染黑 / 泡泡染</span>
+              <span class="text-xs text-slate-700">高風險沉澱金屬色，需特殊退色或深色過渡</span>
+            </button>
+            <button type="button" onclick="selectOption('history_risk', 'multiple_bleach', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-rose-500 hover:bg-rose-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">已漂過 2 次以上 (高受損)</span>
+              <span class="text-xs text-slate-700">髮質偏脆偏綿，不宜再受重度化學傷害</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button type="button" onclick="prevStep(1)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-100 transition">
+            上一步
+          </button>
+          <button type="button" onclick="nextStep(3)" class="px-7 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-rose-600 transition shadow-sm flex items-center gap-1.5">
+            下一步：風格與流行偏好 ➔
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 3: 風格與流行偏好 -->
+      <section id="step-3" class="step-pane hidden space-y-6">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold mb-2">
+            STEP 03
+          </span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900">流行風格與美感氛圍</h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">選色就像挑衣服，髮色必須完美融入你的日常穿搭與個人氣場。</p>
+        </div>
+
+        <!-- Question 3.1: 流行氛圍 -->
+        <div class="space-y-3">
+          <label class="block text-sm font-bold text-slate-800">
+            Q5. 你最嚮往的個人視覺風格是？
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button type="button" onclick="selectOption('vibe', 'korean_glow', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left transition">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200/50">韓系純欲水光感</span>
+                <span class="text-base">✨</span>
+              </div>
+              <p class="font-semibold text-slate-950 mt-1.5 text-sm">溫柔知性、水光透亮、顯白千金感</p>
+              <p class="text-xs text-slate-700 mt-1">焦糖水光棕、奶霜灰咖、薄荷冷茶</p>
+            </button>
+
+            <button type="button" onclick="selectOption('vibe', 'japanese_air', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left transition">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/50">日系透明感雜誌風</span>
+                <span class="text-base">🌿</span>
+              </div>
+              <p class="font-semibold text-slate-950 mt-1.5 text-sm">羽毛輕盈、空氣霧感、低彩度文青自然</p>
+              <p class="text-xs text-slate-700 mt-1">橄欖霧綠、榛果灰褐、杏仁奶咖</p>
+            </button>
+
+            <button type="button" onclick="selectOption('vibe', 'western_balayage', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left transition">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">歐美混血立體線條</span>
+                <span class="text-base">🐆</span>
+              </div>
+              <p class="font-semibold text-slate-950 mt-1.5 text-sm">手刷線條、層次分明、氣場全開隨性時髦</p>
+              <p class="text-xs text-slate-700 mt-1">AirTouch 手刷灰金、混血冷棕挑染</p>
+            </button>
+
+            <button type="button" onclick="selectOption('vibe', 'y2k_statement', this)" class="opt-btn p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left transition">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-pink-700 bg-pink-50 px-2 py-0.5 rounded border border-pink-200/50">Y2K 潮流街頭個性</span>
+                <span class="text-base">🔥</span>
+              </div>
+              <p class="font-semibold text-slate-950 mt-1.5 text-sm">大膽撞色、耳圈亮點、前衛視覺焦點</p>
+              <p class="text-xs text-slate-700 mt-1">冰川星空藍、火龍果粉、裙襬撞色、黑金反差</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 3.2: 妝容習慣 -->
+        <div class="space-y-3 pt-2">
+          <label class="block text-sm font-bold text-slate-800">
+            Q6. 平時出門的化妝習慣？
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button type="button" onclick="selectOption('makeup', 'bare', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">素顏或只擦防曬</span>
+              <span class="text-xs text-slate-700">髮色不能太灰太淺，否則素顏容易顯蒼白無神</span>
+            </button>
+            <button type="button" onclick="selectOption('makeup', 'light', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">日常淡妝 (底妝+唇膏)</span>
+              <span class="text-xs text-slate-700">能駕馭大部分水光感、冷茶色與微亮調</span>
+            </button>
+            <button type="button" onclick="selectOption('makeup', 'full', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">精緻全妝 (眼影修容)</span>
+              <span class="text-xs text-slate-700">無懼淺色/霧灰/高飽和，妝髮完美呼應</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button type="button" onclick="prevStep(2)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-100 transition">
+            上一步
+          </button>
+          <button type="button" onclick="nextStep(4)" class="px-7 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-indigo-600 transition shadow-sm flex items-center gap-1.5">
+            下一步：維護與特殊染技術 ➔
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 4: 維護與特殊技法 -->
+      <section id="step-4" class="step-pane hidden space-y-6">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-2">
+            STEP 04
+          </span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900">特殊染技法與打理週期</h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">美不能只維持一週，我們幫你找出兼顧美貌與好打理的黃金平衡。</p>
+        </div>
+
+        <!-- Question 4.1: 特殊技術意向 -->
+        <div class="space-y-3">
+          <label class="block text-sm font-bold text-slate-800">
+            Q7. 對於「特殊染髮技法」你最感興趣的設計形式？
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button type="button" onclick="selectOption('technique_pref', 'ear', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left transition">
+              <span class="font-bold text-sm text-slate-950 block">🎧 內斂心機 · 耳圈染 (Inner Highlight)</span>
+              <span class="text-xs text-slate-700 block mt-1">外層低調黑茶、撩髮露出心機淺色。上班上學零壓力，回頭率極高。</span>
+            </button>
+
+            <button type="button" onclick="selectOption('technique_pref', 'balayage', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left transition">
+              <span class="font-bold text-sm text-slate-950 block">💫 抗布丁神器 · 手刷光線染 (AirTouch)</span>
+              <span class="text-xs text-slate-700 block mt-1">髮根深色自然漸層，細緻條紋光影。黑髮長出半年依然毫無斷層尷尬感！</span>
+            </button>
+
+            <button type="button" onclick="selectOption('technique_pref', 'skirt', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left transition">
+              <span class="font-bold text-sm text-slate-950 block">👗 時髦俏皮 · 裙襬染 (Dip-Dye Tail)</span>
+              <span class="text-xs text-slate-700 block mt-1">髮尾 3-5 公分撞色，俏皮俐落。未來如果看膩或受損，隨時能剪掉！</span>
+            </button>
+
+            <button type="button" onclick="selectOption('technique_pref', 'full_classic', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left transition">
+              <span class="font-bold text-sm text-slate-950 block">🍷 勻稱純粹 · 全頭質感單色染 (Global Tone)</span>
+              <span class="text-xs text-slate-700 block mt-1">整頭統一色階，極致光澤與絲緞質感，乾淨大氣，百看不厭。</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 4.2: 回染週期 -->
+        <div class="space-y-3 pt-2">
+          <label class="block text-sm font-bold text-slate-800">
+            Q8. 你理想中回沙龍補染／維護的週期？
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button type="button" onclick="selectOption('maintenance', 'frequent', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">1.5 - 2 個月 (勤勞型)</span>
+              <span class="text-xs text-slate-700">可以維持高明度、極淺色系</span>
+            </button>
+            <button type="button" onclick="selectOption('maintenance', 'moderate', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">3 - 4 個月 (一般型)</span>
+              <span class="text-xs text-slate-700">適合自然過渡色、低落差色階</span>
+            </button>
+            <button type="button" onclick="selectOption('maintenance', 'lazy', this)" class="opt-btn p-3.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left transition">
+              <span class="font-semibold text-sm text-slate-950 block">半年以上 (懶人抗布丁)</span>
+              <span class="text-xs text-slate-700">強烈推薦光線手刷染或深底耳圈</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button type="button" onclick="prevStep(3)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-100 transition">
+            上一步
+          </button>
+          <button type="button" onclick="calculateAndShowResult()" class="px-7 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black text-sm hover:opacity-95 transition shadow-lg flex items-center gap-2">
+            ✨ 產生設計師專屬診斷報告
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- RESULT REPORT SECTION -->
+    <div id="result-view" class="hidden space-y-6 transition-all duration-500">
+      
+      <!-- Top Diagnostic Header -->
+      <div class="bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 text-white rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-xl">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur border border-white/20 text-xs font-bold tracking-wider uppercase text-purple-200">
+              Personal Color Diagnostic Prescription
+            </span>
+            <span class="text-xs text-slate-400 font-mono">2026.11.19</span>
+          </div>
+
+          <p class="text-sm text-purple-300 font-medium">專屬色彩調性分析</p>
+          <h2 id="res-archetype" class="text-2xl sm:text-3xl font-black tracking-tight mt-1 mb-3 text-white">
+            冷調夏季型 · 清冷霧光
+          </h2>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-white/10 text-xs">
+            <div>
+              <span class="text-slate-400 block">膚色基調</span>
+              <span id="res-badge-tone" class="font-bold text-white text-sm">冷調 Cool</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block">修飾重點</span>
+              <span id="res-badge-objective" class="font-bold text-emerald-300 text-sm">去黃提亮</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block">漂髮處方</span>
+              <span id="res-badge-bleach" class="font-bold text-purple-300 text-sm">耳圈局部退色</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block">抗布丁頭週期</span>
+              <span id="res-badge-maintenance" class="font-bold text-amber-300 text-sm">3~5 個月</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOP 1 HERO COLOR RECOMMENDATION -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 custom-shadow border border-slate-200 relative overflow-hidden">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+            <span class="text-xs font-black tracking-wider text-rose-600 uppercase">TOP 1 命定流行主色提案</span>
+          </div>
+          <span class="text-xs font-mono font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md">
+            匹配率 <span id="res-match-rate" class="text-purple-600 font-black">98.5%</span>
+          </span>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+          <!-- Swatch & Visual Card -->
+          <div class="w-full md:w-5/12 flex flex-col gap-3">
+            <div id="res-color-display" class="w-full h-44 rounded-2xl p-5 flex flex-col justify-between shadow-inner relative overflow-hidden text-white transition-all duration-300">
+              <div class="flex justify-between items-start">
+                <span id="res-color-code" class="text-xs font-mono bg-black/40 backdrop-blur px-2.5 py-1 rounded-lg border border-white/20 font-bold">#ASH-08</span>
+                <span id="res-color-level" class="text-xs bg-white/20 backdrop-blur px-2 py-0.5 rounded font-bold">明度 7度</span>
+              </div>
+              <div>
+                <h3 id="res-color-name" class="text-2xl font-black tracking-tight drop-shadow-sm">冷萃伯爵薄荷灰茶</h3>
+                <p id="res-color-en" class="text-xs text-white/80 font-mono tracking-wide mt-0.5">Iced Earl Grey Mint Ash</p>
+              </div>
+            </div>
+
+            <!-- Technique Visual Pill -->
+            <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-100 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-purple-900 block" id="res-technique-title">✂ 特殊染技法：心機耳圈染</span>
+                <span class="text-xs text-purple-700" id="res-technique-sub">外層黑茶冷棕 ✕ 內層極光霧白金</span>
+              </div>
+              <span class="text-lg">🎧</span>
+            </div>
+          </div>
+
+          <!-- Color Story & Analysis -->
+          <div class="w-full md:w-7/12 space-y-4">
+            <div>
+              <h4 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+                <span>💡</span> 設計師顯白調色解析
+              </h4>
+              <p id="res-color-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                利用帶有微冷灰與微綠青感的中性色素，精準中和亞洲人原生髮中最容易泛紅泛橘的底色。在自然光下透出微風般的透明空氣感，素顏顯白兩階，化妝更顯清冷高級千金感。
+              </p>
+            </div>
+
+            <!-- Salon Formula Specs -->
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 space-y-2.5 text-xs">
+              <div class="flex justify-between border-b border-slate-200/60 pb-2">
+                <span class="text-slate-500">漂髮需求度</span>
+                <span id="res-spec-bleach" class="font-bold text-slate-800">基底免漂；內層耳圈漂退至 8.5 度</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-200/60 pb-2">
+                <span class="text-slate-500">褪色過渡期預估</span>
+                <span id="res-spec-fade" class="font-bold text-slate-800">微霧金褐 ➔ 乾淨奶茶灰（完全不發黃）</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">居家矯色維護</span>
+                <span id="res-spec-care" class="font-bold text-purple-700">冷青去黃矯色洗髮精（每週 2-3 次）</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALTERNATIVE TREND CHOICES (2 More Trends) -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <span>🎨</span> 備選流行色提案（依穿搭與季節更換）
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="alt-colors-container"></div>
+      </div>
+
+      <!-- DESIGNER'S CONSULTATION CARD (For Salon Communication) -->
+      <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-5 text-amber-950 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-base">📋</span>
+            <h4 class="font-bold text-sm text-amber-900">到沙龍時如何跟設計師溝通？（設計師聽得懂的行話）</h4>
+          </div>
+          <button onclick="copyConsultationPhrase()" class="text-xs bg-amber-200/60 hover:bg-amber-200 text-amber-900 font-bold px-2.5 py-1 rounded-lg transition">
+            📋 複製文字
+          </button>
+        </div>
+        <p id="res-salon-phrase" class="text-xs leading-relaxed text-amber-800 bg-white/70 p-3 rounded-xl border border-amber-200/50 font-mono">
+          「設計師你好！我測出來是冷調夏季型。我想做外層 6 度黑茶色，內層做耳圈染漂退到 8.5 度的薄荷霧灰白金。請幫我避開暖橘色素，並加強去黃光澤感！」
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="button" onclick="resetQuiz()" class="w-full sm:w-1/3 py-3 rounded-xl border border-slate-300 font-bold text-sm text-slate-700 hover:bg-slate-100 transition text-center">
+          ↺ 重新測試
+        </button>
+        <button type="button" onclick="shareToLine()" class="w-full sm:w-1/3 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 transition shadow-sm text-center flex items-center justify-center gap-2">
+          💬 分享到 LINE
+        </button>
+        <button type="button" onclick="window.print()" class="w-full sm:w-1/3 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-purple-600 transition shadow-sm text-center flex items-center justify-center gap-2">
+          🖨 下載/列印處方
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ==================== MAIN TAB 2: 開放式流行色庫圖鑑 (GALLERY) ==================== -->
+  <main id="tab-gallery" class="hidden max-w-5xl mx-auto px-4 py-6 w-full flex-1">
+    
+    <!-- Gallery Hero Header -->
+    <div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md border border-purple-200">
+          GALLERY · 2026 潮流髮色圖鑑
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">開放式色庫與染髮工藝指南</h2>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">無需填寫問卷，自由探索適合各種膚色基調與生活場景的熱門流行色。</p>
+      </div>
+
+      <!-- Quick Filter Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar pb-1">
+        <button onclick="filterGallery('all')" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold bg-slate-900 text-white transition whitespace-nowrap">全部色號</button>
+        <button onclick="filterGallery('no_bleach')" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">免漂顯白</button>
+        <button onclick="filterGallery('cool')" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">冷皮去黃</button>
+        <button onclick="filterGallery('warm')" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">暖皮水光</button>
+        <button onclick="filterGallery('olive')" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">橄欖皮專用</button>
+        <button onclick="filterGallery('technique')" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">手刷/耳圈</button>
+      </div>
+    </div>
+
+    <!-- Gallery Grid Container -->
+    <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Populated dynamically via JavaScript -->
+    </div>
+
+  </main>
+
+
+  <!-- ==================== COLOR DETAIL MODAL ==================== -->
+  <div id="color-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 custom-shadow max-h-[90vh] overflow-y-auto space-y-4">
+      <div class="flex items-start justify-between">
+        <div>
+          <span id="modal-code" class="text-xs font-mono font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded"></span>
+          <h3 id="modal-name" class="text-2xl font-black text-slate-900 mt-1"></h3>
+          <p id="modal-en" class="text-xs text-slate-700 font-mono"></p>
+        </div>
+        <button onclick="closeColorModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 font-bold transition">✕</button>
+      </div>
+
+      <div id="modal-swatch" class="w-full h-36 rounded-xl shadow-inner flex items-end p-4 text-white">
+        <span id="modal-level-badge" class="text-xs bg-black/50 backdrop-blur px-2.5 py-1 rounded-md font-bold"></span>
+      </div>
+
+      <p id="modal-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2 text-xs">
+        <div class="flex justify-between border-b border-slate-200/60 pb-1.5">
+          <span class="text-slate-500">適合膚質</span>
+          <span id="modal-fit" class="font-bold text-slate-800"></span>
+        </div>
+        <div class="flex justify-between border-b border-slate-200/60 pb-1.5">
+          <span class="text-slate-500">漂髮需求</span>
+          <span id="modal-bleach" class="font-bold text-slate-800"></span>
+        </div>
+        <div class="flex justify-between border-b border-slate-200/60 pb-1.5">
+          <span class="text-slate-500">褪色表現</span>
+          <span id="modal-fade" class="font-bold text-slate-800"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">居家照護建議</span>
+          <span id="modal-care" class="font-bold text-purple-700"></span>
+        </div>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button onclick="useColorInQuiz()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition">
+          以這款色系開始診斷
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== SHARE / QR CODE MODAL ==================== -->
+  <div id="share-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-sm rounded-2xl p-6 custom-shadow space-y-4 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center mx-auto text-xl font-bold">
+        🔗
+      </div>
+      <h3 class="text-lg font-black text-slate-900">開放式網頁版分享</h3>
+      <p class="text-xs text-slate-700 leading-relaxed">
+        可將此網頁直接發布至 GitHub Pages 或 Vercel，顧客在手機上點開連結或掃描 QR 即可測驗！
+      </p>
+
+      <div class="p-3 bg-slate-100 rounded-xl text-xs font-mono text-slate-600 break-all select-all text-left">
+        file:///c:/Users/User/Desktop/髮色/index.html
+      </div>
+
+      <div class="flex flex-col gap-2 pt-2">
+        <button onclick="copyCurrentUrl()" class="w-full py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition">
+          📋 複製本機網址 / 路徑
+        </button>
+        <button onclick="closeShareModal()" class="w-full py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-100 transition">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="mt-12 py-6 border-t border-slate-200 bg-white/60 text-center text-xs text-slate-600">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <span>HAIR COLOR MATRIX · 髮型設計師專用顧客命定髮色分析系統 · 2026 Open Web Edition</span>
+      <div class="flex items-center gap-3">
+        <button onclick="switchMainTab('quiz')" class="hover:underline">智慧診斷</button>
+        <span>·</span>
+        <button onclick="switchMainTab('gallery')" class="hover:underline">開放色庫</button>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== JAVASCRIPT ENGINE ==================== -->
+  <script>
+    // 1. STATE & ANSWERS
+    const userAnswers = {
+      tone: null,
+      skin_lightness: null,
+      bleach_accept: null,
+      history_risk: null,
+      vibe: null,
+      makeup: null,
+      technique_pref: null,
+      maintenance: null
+    };
+
+    let currentStep = 1;
+
+    // 2. 2026 TREND HAIR COLOR DATABASE (8 Iconic Salon Formulations)
+    const hairColorDB = {
+      cool_earl_ash: {
+        id: 'cool_earl_ash',
+        code: '#ASH-07',
+        level: '7度 (微霧透光)',
+        name: '冷萃伯爵薄荷灰茶',
+        en: 'Iced Earl Grey Mint Ash',
+        bg: 'linear-gradient(135deg, #4A5568, #2D3748)',
+        tone: 'cool',
+        category: ['cool', 'no_bleach'],
+        desc: '運用低彩度的冷灰調與微冷綠青感，精準中和東方人頭髮中的紅橘色素。自帶清爽透明空氣感，素顏顯白兩階，化妝更顯高雅清冷。',
+        bleachReq: '基底免漂；若搭配局部耳圈需褪至 8.5 度',
+        fade: '霧灰褐 ➔ 質感冷奶茶（不易發橘發黃）',
+        care: '冷灰去黃矯色洗髮精（每週 2-3 次）',
+        fit: '冷白皮、橄欖皮、自然微黃皮'
+      },
+      ice_blue_black: {
+        id: 'ice_blue_black',
+        code: '#NAVY-04',
+        level: '4-5度 (低調奢華)',
+        name: '極光夜空冰川藍黑',
+        en: 'Glacier Aurora Blue Black',
+        bg: 'linear-gradient(135deg, #1A202C, #1E3A8A)',
+        tone: 'cool',
+        category: ['cool', 'no_bleach'],
+        desc: '在深曜石黑中注入深邃的冰川藍冷光。室內像原生健康黑髮，陽光下流動著深藍星空反光，極具高級神祕感，顯白度最高！',
+        bleachReq: '免漂可染（原生髮即可直上顯色）',
+        fade: '深邃墨藍 ➔ 冷黑茶色（不反黃、不傷質）',
+        care: '護色洗髮精 + 藍光補色洗',
+        fit: '全膚質顯白、冬季冷調型'
+      },
+      smoke_pink_lavender: {
+        id: 'smoke_pink_lavender',
+        code: '#LAV-09',
+        level: '8.5度 (潮流女團色)',
+        name: '煙燻薄霧粉紫藤',
+        en: 'Smoky Lavender Lilac',
+        bg: 'linear-gradient(135deg, #9F7AEA, #ED64A6)',
+        tone: 'cool',
+        category: ['cool', 'technique'],
+        desc: '帶有灰色濾鏡的柔粉淡紫，夢幻柔光不螢光。粉色提氣色、紫色去暗黃，能修飾冷白皮與透粉膚質，宛如韓團 C 位般自帶柔焦光環。',
+        bleachReq: '需漂退至 8-9 度（適合耳圈、手刷或全頭）',
+        fade: '灰粉紫 ➔ 柔和香檳奶白金',
+        care: '粉紫矯色補色洗髮精（維持霧感通透）',
+        fit: '白皙冷皮、精緻全妝穿搭'
+      },
+      caramel_bambi: {
+        id: 'caramel_bambi',
+        code: '#BRN-06',
+        level: '6-7度 (溫柔純欲)',
+        name: '焦糖斑比水光棕',
+        en: 'Caramel Bambi Glow Brown',
+        bg: 'linear-gradient(135deg, #78350F, #92400E)',
+        tone: 'warm',
+        category: ['warm', 'no_bleach'],
+        desc: '融合溫暖蜂蜜與微甜太妃糖的色調，讓暖黃肌膚散發出宛如抹了高光的健康紅潤光澤。百搭不挑人，自帶溫柔好感度千金氣場。',
+        bleachReq: '完全免漂（原生髮一步直染提亮）',
+        fade: '焦糖栗色 ➔ 自然柔和淺茶色',
+        care: '溫和保濕護色洗，無須補色洗',
+        fit: '暖黃肌、日常上班學生、自然素顏'
+      },
+      apricot_milktea: {
+        id: 'apricot_milktea',
+        code: '#PEACH-08',
+        level: '8度 (明亮甜美)',
+        name: '杏桃奶霜蜜糖金',
+        en: 'Apricot Cream Honey Blonde',
+        bg: 'linear-gradient(135deg, #D97706, #F59E0B)',
+        tone: 'warm',
+        category: ['warm', 'technique'],
+        desc: '溫暖明亮的奶茶基底融入一抹杏桃粉橘，整個人看起來如同被初春暖陽照耀，甜美中透出滿滿元氣，是春季型女生的本命潮流色。',
+        bleachReq: '建議微褪色至 7.5-8 度或作光線線條',
+        fade: '蜜桃奶茶 ➔ 溫柔燕麥米金',
+        care: '暖棕／奶茶專用護色補色洗',
+        fit: '春季暖皮、喜歡活力洋氣穿搭'
+      },
+      bordeaux_wine: {
+        id: 'bordeaux_wine',
+        code: '#RED-05',
+        level: '5-6度 (復古顯白)',
+        name: '波爾多黑醋栗冷酒紅',
+        en: 'Bordeaux Blackcurrant Velvet',
+        bg: 'linear-gradient(135deg, #4A0E17, #722F37)',
+        tone: 'warm',
+        category: ['warm', 'no_bleach'],
+        desc: '融合深紫黑與濃郁紅酒葡萄的復古色澤。暖黃皮染完立即去黃顯白兩度，自帶港風復古或哥德氣場，顯氣色能力無可挑剔。',
+        bleachReq: '完全免漂（高遮蓋力，適合蓋深或遮白）',
+        fade: '黑莓紅 ➔ 濃郁茶紅棕（極耐洗）',
+        care: '紅紫護色洗髮乳',
+        fit: '暖深小麥肌、亞洲微黃皮、需遮白髮者'
+      },
+      bitter_matcha_olive: {
+        id: 'bitter_matcha_olive',
+        code: '#OLV-06',
+        level: '6度 (高級微冷)',
+        name: '冷萃苦甜抹茶橄欖棕',
+        en: 'Bitter Matcha Olive Ash',
+        bg: 'linear-gradient(135deg, #374151, #2C4A3E)',
+        tone: 'olive',
+        category: ['olive', 'no_bleach'],
+        desc: '橄欖皮的究極救星！青色色素完美壓制亞洲人最怕的蠟黃感，深綠與冷棕的調和在室內低調內斂，在陽光下透出微冷高級光澤。',
+        bleachReq: '完全免漂（底色帶黃更易上出青感）',
+        fade: '深抹茶灰 ➔ 霧面亞麻深褐（絕不發橘）',
+        care: '綠調去橘矯色洗髮精',
+        fit: '橄欖偏黃綠肌、討厭頭髮反紅者'
+      },
+      platinum_ash_airtouch: {
+        id: 'platinum_ash_airtouch',
+        code: '#AIR-10',
+        level: '9.5度 (極致混血)',
+        name: '歐美 AirTouch 冰霧白金',
+        en: 'AirTouch Ice Platinum Ash',
+        bg: 'linear-gradient(135deg, #475569, #94A3B8)',
+        tone: 'neutral',
+        category: ['technique', 'cool'],
+        desc: '利用氣流挑出細軟毛髮，在深色基底中手刷出立體極冰白金。線條如同陽光自然灑落，長出新黑髮完全無布丁頭斷層！',
+        bleachReq: '局部線條手刷漂退至 9 度（保留 60% 原生髮）',
+        fade: '冷霧白金 ➔ 柔和燕麥奶油金（越洗越立體）',
+        care: '極冷去黃紫洗（每週 2 次維持白金不泛黃）',
+        fit: '混血歐美風、討厭常跑髮廊補布丁頭者'
+      }
+    };
+
+    // 3. TAB SWITCHING
+    function switchMainTab(tab) {
+      const quizTab = document.getElementById('tab-quiz');
+      const galleryTab = document.getElementById('tab-gallery');
+      const btnQuiz = document.getElementById('nav-btn-quiz');
+      const btnGallery = document.getElementById('nav-btn-gallery');
+
+      if (tab === 'quiz') {
+        quizTab.classList.remove('hidden');
+        galleryTab.classList.add('hidden');
+        btnQuiz.classList.add('bg-white', 'text-purple-700', 'shadow-sm');
+        btnQuiz.classList.remove('text-slate-700');
+        btnGallery.classList.remove('bg-white', 'text-purple-700', 'shadow-sm');
+        btnGallery.classList.add('text-slate-700');
+      } else {
+        quizTab.classList.add('hidden');
+        galleryTab.classList.remove('hidden');
+        btnGallery.classList.add('bg-white', 'text-purple-700', 'shadow-sm');
+        btnGallery.classList.remove('text-slate-700');
+        btnQuiz.classList.remove('bg-white', 'text-purple-700', 'shadow-sm');
+        btnQuiz.classList.add('text-slate-700');
+        renderGallery('all');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 4. GALLERY RENDERING & FILTERING
+    function renderGallery(filter = 'all') {
+      const grid = document.getElementById('gallery-grid');
+      grid.innerHTML = '';
+
+      Object.values(hairColorDB).forEach(item => {
+        let matches = false;
+        if (filter === 'all') matches = true;
+        else if (filter === 'no_bleach' && item.category.includes('no_bleach')) matches = true;
+        else if (filter === 'cool' && item.category.includes('cool')) matches = true;
+        else if (filter === 'warm' && item.category.includes('warm')) matches = true;
+        else if (filter === 'olive' && item.category.includes('olive')) matches = true;
+        else if (filter === 'technique' && item.category.includes('technique')) matches = true;
+
+        if (matches) {
+          const card = document.createElement('div');
+          card.className = 'glass-card rounded-2xl overflow-hidden border border-slate-200/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group cursor-pointer';
+          card.onclick = () => openColorModal(item.id);
+
+          card.innerHTML = `
+            <div>
+              <div class="h-32 w-full p-4 flex flex-col justify-between relative" style="background: ${item.bg}">
+                <div class="flex justify-between items-start">
+                  <span class="text-[10px] font-mono bg-black/40 backdrop-blur text-white px-2 py-0.5 rounded font-bold">${item.code}</span>
+                  <span class="text-[10px] bg-white/20 backdrop-blur text-white px-2 py-0.5 rounded font-bold">${item.level.split(' ')[0]}</span>
+                </div>
+                <div>
+                  <h4 class="text-lg font-black text-white drop-shadow">${item.name}</h4>
+                  <p class="text-[11px] text-white/80 font-mono">${item.en}</p>
+                </div>
+              </div>
+              <div class="p-4 space-y-2">
+                <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">${item.desc}</p>
+                <div class="pt-2 flex flex-wrap gap-1.5 text-[10px] font-bold">
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700">${item.bleachReq.includes('免漂') ? '🌿 免漂首選' : '✂ 需微褪色'}</span>
+                  <span class="px-2 py-0.5 rounded bg-purple-50 text-purple-700">${item.fit.split('、')[0]}</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-4 pb-4 pt-1 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-600 group-hover:text-purple-700">
+              <span>查看配方與細節</span>
+              <span class="group-hover:translate-x-1 transition-transform">➔</span>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      });
+    }
+
+    function filterGallery(filter) {
+      document.querySelectorAll('.filter-chip').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white');
+        btn.classList.add('bg-white', 'text-slate-700');
+      });
+      event.target.classList.remove('bg-white', 'text-slate-700');
+      event.target.classList.add('bg-slate-900', 'text-white');
+      renderGallery(filter);
+    }
+
+    // 5. COLOR MODAL
+    let activeModalColorId = null;
+
+    function openColorModal(id) {
+      const item = hairColorDB[id];
+      activeModalColorId = id;
+      document.getElementById('modal-code').textContent = item.code;
+      document.getElementById('modal-name').textContent = item.name;
+      document.getElementById('modal-en').textContent = item.en;
+      document.getElementById('modal-swatch').style.background = item.bg;
+      document.getElementById('modal-level-badge').textContent = item.level;
+      document.getElementById('modal-desc').textContent = item.desc;
+      document.getElementById('modal-fit').textContent = item.fit;
+      document.getElementById('modal-bleach').textContent = item.bleachReq;
+      document.getElementById('modal-fade').textContent = item.fade;
+      document.getElementById('modal-care').textContent = item.care;
+
+      document.getElementById('color-modal').classList.remove('hidden');
+    }
+
+    function closeColorModal() {
+      document.getElementById('color-modal').classList.add('hidden');
+    }
+
+    function useColorInQuiz() {
+      closeColorModal();
+      switchMainTab('quiz');
+      // pre-set based on tone
+      const item = hairColorDB[activeModalColorId];
+      if (item) {
+        userAnswers.tone = item.tone === 'neutral' ? 'cool' : item.tone;
+      }
+    }
+
+    // 6. QUIZ INTERACTION & PROGRESSION
+    function selectOption(key, val, el) {
+      userAnswers[key] = val;
+      const parent = el.closest('.grid');
+      parent.querySelectorAll('.opt-btn').forEach(btn => {
+        btn.classList.remove('border-purple-600', 'bg-purple-50', 'ring-2', 'ring-purple-400', 'border-rose-600', 'bg-rose-50', 'border-indigo-600', 'bg-indigo-50', 'border-amber-600', 'bg-amber-50');
+      });
+      el.classList.add('border-purple-600', 'bg-purple-50', 'ring-2', 'ring-purple-400');
+    }
+
+    function updateProgress(step) {
+      const bar = document.getElementById('progress-bar');
+      const label = document.getElementById('step-label');
+      const percent = document.getElementById('progress-percent');
+      
+      const stepLabels = [
+        '步驟 1 / 4：個人色彩與膚色診斷',
+        '步驟 2 / 4：髮況與歷史紀錄檢查',
+        '步驟 3 / 4：流行風格與妝容偏好',
+        '步驟 4 / 4：特殊染技法與維護週期'
+      ];
+
+      currentStep = step;
+      label.textContent = stepLabels[step - 1];
+      const p = (step / 4) * 100;
+      percent.textContent = `${p}%`;
+      bar.style.width = `${p}%`;
+    }
+
+    function nextStep(step) {
+      if (currentStep === 1 && (!userAnswers.tone || !userAnswers.skin_lightness)) {
+        alert('請先選擇 Q1 與 Q2 的選項以利精準分析！');
+        return;
+      }
+      if (currentStep === 2 && (!userAnswers.bleach_accept || !userAnswers.history_risk)) {
+        alert('請先選擇 Q3 與 Q4 的選項以評估髮質耐受度！');
+        return;
+      }
+      if (currentStep === 3 && (!userAnswers.vibe || !userAnswers.makeup)) {
+        alert('請先選擇 Q5 與 Q6 的風格偏好！');
+        return;
+      }
+
+      document.querySelectorAll('.step-pane').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`step-${step}`).classList.remove('hidden');
+      updateProgress(step);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function prevStep(step) {
+      document.querySelectorAll('.step-pane').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`step-${step}`).classList.remove('hidden');
+      updateProgress(step);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 7. DECISION LOGIC ENGINE
+    function calculateAndShowResult() {
+      if (!userAnswers.technique_pref || !userAnswers.maintenance) {
+        alert('請先選擇 Q7 與 Q8 的選項！');
+        return;
+      }
+
+      let heroKey = 'cool_earl_ash';
+      let alt1Key = 'ice_blue_black';
+      let alt2Key = 'platinum_ash_airtouch';
+
+      let archetypeText = '';
+      let objectiveText = '';
+      let techniqueTitle = '';
+      let techniqueSub = '';
+      let salonPhrase = '';
+
+      const { tone, bleach_accept, history_risk, vibe, technique_pref, maintenance } = userAnswers;
+
+      // Tone & Vibe Logic
+      if (tone === 'cool') {
+        archetypeText = '冷調夏季型 · 清冷霧光';
+        objectiveText = '去黃提亮 · 氣色通透';
+        if (bleach_accept === 'no' || history_risk === 'boxed_or_black') {
+          heroKey = 'ice_blue_black';
+          alt1Key = 'cool_earl_ash';
+          alt2Key = 'bordeaux_wine';
+        } else if (vibe === 'y2k_statement' || vibe === 'korean_glow') {
+          heroKey = (bleach_accept === 'full') ? 'smoke_pink_lavender' : 'cool_earl_ash';
+          alt1Key = 'ice_blue_black';
+          alt2Key = 'platinum_ash_airtouch';
+        } else {
+          heroKey = 'cool_earl_ash';
+          alt1Key = 'ice_blue_black';
+          alt2Key = 'smoke_pink_lavender';
+        }
+      } else if (tone === 'warm') {
+        archetypeText = '暖調春日型 · 蜜糖光暈';
+        objectiveText = '修飾蠟黃 · 提昇元氣紅潤';
+        if (bleach_accept === 'no' || history_risk === 'boxed_or_black') {
+          heroKey = (vibe === 'korean_glow') ? 'caramel_bambi' : 'bordeaux_wine';
+          alt1Key = 'caramel_bambi';
+          alt2Key = 'bitter_matcha_olive';
+        } else if (vibe === 'y2k_statement' || vibe === 'korean_glow') {
+          heroKey = 'apricot_milktea';
+          alt1Key = 'caramel_bambi';
+          alt2Key = 'platinum_ash_airtouch';
+        } else {
+          heroKey = 'caramel_bambi';
+          alt1Key = 'apricot_milktea';
+          alt2Key = 'bordeaux_wine';
+        }
+      } else { // olive
+        archetypeText = '質感知性橄欖型 · 濾鏡灰霧';
+        objectiveText = '中和青黃 · 打造高級透明感';
+        heroKey = 'bitter_matcha_olive';
+        alt1Key = 'cool_earl_ash';
+        alt2Key = 'ice_blue_black';
+      }
+
+      if (technique_pref === 'balayage' && bleach_accept !== 'no') {
+        heroKey = 'platinum_ash_airtouch';
+        alt1Key = (tone === 'warm') ? 'caramel_bambi' : 'cool_earl_ash';
+      }
+
+      const hero = hairColorDB[heroKey];
+      const alt1 = hairColorDB[alt1Key];
+      const alt2 = hairColorDB[alt2Key];
+
+      if (technique_pref === 'ear') {
+        techniqueTitle = '🎧 心機耳圈染 (Inner Highlight)';
+        techniqueSub = `外層低調 ${hero.level.split(' ')[0]} ✕ 內層撩髮點綴跳色`;
+        salonPhrase = `「設計師你好！我做完個人色彩分析是${archetypeText}。我想做【外深內淺的耳圈染】，外層維持低調不突兀，內層耳後做【${hero.name}】的局部跳色，請幫我注意褪色後的霧感！」`;
+      } else if (technique_pref === 'balayage') {
+        techniqueTitle = '💫 抗布丁神器 · 手刷光線染 (AirTouch Balayage)';
+        techniqueSub = '髮根深色自然漸層 ✕ 歐美立體光影線條';
+        salonPhrase = `「設計師你好！我想要做【歐美手刷光線染（AirTouch）】，主色調想要【${hero.name}】。希望髮根保留深色過渡，就算黑髮長出 4-6 個月也不要出現明顯布丁頭斷層！」`;
+      } else if (technique_pref === 'skirt') {
+        techniqueTitle = '👗 時髦俏皮 · 裙襬染 (Dip-Dye Tail)';
+        techniqueSub = `髮尾 4 公分撞色點綴 ✕ 隨心所欲剪掉不留戀`;
+        salonPhrase = `「設計師你好！我想要嘗試【裙襬染】，整體基底走自然色，但在髮尾 3-5 公分做【${hero.name}】的聚焦亮點，想營造俐落俏皮的潮流感！」`;
+      } else {
+        techniqueTitle = '🍷 勻稱純粹 · 全頭質感單色染 (Global Tone)';
+        techniqueSub = '全頭飽滿絲緞光澤 ✕ 溫柔純淨零雜色';
+        salonPhrase = `「設計師你好！我想做【全頭單色染】，指定色系是【${hero.name}】。希望加強水光鏡面質感，同時依照我的${tone === 'cool' ? '冷皮' : (tone === 'warm' ? '暖皮' : '橄欖皮')}幫我特調去黃配方！」`;
+      }
+
+      if (history_risk === 'boxed_or_black') {
+        salonPhrase += ' （※備註告知：之前有一點自行染黑/泡泡染的紀錄，可能需要先局部試一束頭髮看是否卡色）。';
+      }
+
+      // Render into DOM
+      document.getElementById('res-archetype').textContent = archetypeText;
+      document.getElementById('res-badge-tone').textContent = (tone === 'cool' ? '冷調 Cool' : (tone === 'warm' ? '暖調 Warm' : '橄欖皮 Olive'));
+      document.getElementById('res-badge-objective').textContent = objectiveText;
+      document.getElementById('res-badge-bleach').textContent = (bleach_accept === 'no' ? '堅持完全免漂' : (bleach_accept === 'partial' ? '局部/耳圈微褪色' : '全頭/線條漂退'));
+      document.getElementById('res-badge-maintenance').textContent = (maintenance === 'lazy' ? '半年以上耐受' : (maintenance === 'moderate' ? '3-4 個月' : '1.5-2 個月'));
+
+      document.getElementById('res-color-display').style.background = hero.bg;
+      document.getElementById('res-color-code').textContent = hero.code;
+      document.getElementById('res-color-level').textContent = hero.level;
+      document.getElementById('res-color-name').textContent = hero.name;
+      document.getElementById('res-color-en').textContent = hero.en;
+      document.getElementById('res-color-desc').textContent = hero.desc;
+      document.getElementById('res-technique-title').textContent = techniqueTitle;
+      document.getElementById('res-technique-sub').textContent = techniqueSub;
+      document.getElementById('res-spec-bleach').textContent = hero.bleachReq;
+      document.getElementById('res-spec-fade').textContent = hero.fade;
+      document.getElementById('res-spec-care').textContent = hero.care;
+      document.getElementById('res-salon-phrase').textContent = salonPhrase;
+
+      const matchScore = 96 + Math.floor(Math.random() * 30) / 10;
+      document.getElementById('res-match-rate').textContent = `${matchScore}%`;
+
+      const altContainer = document.getElementById('alt-colors-container');
+      altContainer.innerHTML = `
+        <div onclick="openColorModal('${alt1.id}')" class="p-3.5 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition flex gap-3 items-center cursor-pointer shadow-sm">
+          <div class="w-11 h-11 rounded-xl flex-shrink-0 shadow-sm" style="background: ${alt1.bg}"></div>
+          <div class="min-w-0">
+            <span class="text-[10px] font-mono text-purple-600 font-bold">${alt1.code} · ${alt1.level.split(' ')[0]}</span>
+            <h5 class="text-xs font-bold text-slate-900 truncate">${alt1.name}</h5>
+            <p class="text-[11px] text-slate-500 truncate">${alt1.en}</p>
+          </div>
+        </div>
+        <div onclick="openColorModal('${alt2.id}')" class="p-3.5 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition flex gap-3 items-center cursor-pointer shadow-sm">
+          <div class="w-11 h-11 rounded-xl flex-shrink-0 shadow-sm" style="background: ${alt2.bg}"></div>
+          <div class="min-w-0">
+            <span class="text-[10px] font-mono text-purple-600 font-bold">${alt2.code} · ${alt2.level.split(' ')[0]}</span>
+            <h5 class="text-xs font-bold text-slate-900 truncate">${alt2.name}</h5>
+            <p class="text-[11px] text-slate-500 truncate">${alt2.en}</p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('quiz-card').classList.add('hidden');
+      document.getElementById('progress-container').classList.add('hidden');
+      document.getElementById('result-view').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      for (let k in userAnswers) userAnswers[k] = null;
+      document.querySelectorAll('.opt-btn').forEach(btn => {
+        btn.classList.remove('border-purple-600', 'bg-purple-50', 'ring-2', 'ring-purple-400', 'border-rose-600', 'bg-rose-50', 'border-indigo-600', 'bg-indigo-50', 'border-amber-600', 'bg-amber-50');
+      });
+      document.getElementById('result-view').classList.add('hidden');
+      document.getElementById('quiz-card').classList.remove('hidden');
+      document.getElementById('progress-container').classList.remove('hidden');
+      document.querySelectorAll('.step-pane').forEach(p => p.classList.add('hidden'));
+      document.getElementById('step-1').classList.remove('hidden');
+      updateProgress(1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 8. SHARING HELPERS
+    function copyConsultationPhrase() {
+      const text = document.getElementById('res-salon-phrase').textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        alert('已複製設計師溝通行話！可直接貼在 LINE 或筆記中。');
+      });
+    }
+
+    function shareToLine() {
+      const colorName = document.getElementById('res-color-name').textContent;
+      const archetype = document.getElementById('res-archetype').textContent;
+      const text = `我的專屬髮色診斷出爐囉！✨\n色彩調性：${archetype}\nTOP 1 命定流行色：${colorName}\n快來測測你的 2026 命定潮流髮色！`;
+      const url = `https://line.me/R/msg/text/?${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function openShareModal() {
+      document.getElementById('share-modal').classList.remove('hidden');
+    }
+
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.add('hidden');
+    }
+
+    function copyCurrentUrl() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('已成功複製網址！');
+        closeShareModal();
+      });
+    }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', () => {
+      renderGallery('all');
+    });
+  </script>
+</body>
+</html>
